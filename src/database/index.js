@@ -15,7 +15,11 @@ class Database {
   // Faz a conexão com as bases de dados
   init() {
     this.connection = new Sequelize(databaseConfig);
-    models.map(model => model.init(this.connection));
+    models
+      .map(model => model.init(this.connection))
+      .map(
+        model => model.associate && models.associate(this.connection.models)
+      );
   }
 }
 

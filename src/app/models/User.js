@@ -23,6 +23,16 @@ class User extends Model {
     return this;
   }
 
+  static associate(models) {
+    // BELONGSTO
+    // DIZ QUE TENHO O ID DO FILE DENTRO DO USER
+    // HASONE
+    // DIZ QUE TENHO O ID DE USUARIO DENTRO DA TABELA DE FILE
+    // HASMANY
+    // DIZ QUE TEMOS VARIOS ID DE USUARIO DENTRO DE FILE
+    this.belongsTo(models.File, { foreignKey: 'avatar_id' });
+  }
+
   checkPassword(password) {
     return bcrypt.compare(password, this.password_hash);
   }
