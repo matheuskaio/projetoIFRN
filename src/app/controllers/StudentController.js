@@ -54,6 +54,27 @@ class StudentController {
     const studentUpdate = await student.update(req.body);
     return res.json({ studentUpdate });
   }
+
+  async list(req, res) {
+    const students = await Student.findAll({
+      attributes: [
+        'id',
+        'nome',
+        'cpf',
+        'matricula',
+        'curso',
+        'curriculo_latte',
+      ],
+      include: [
+        {
+          model: User,
+          as: 'user',
+          attributes: ['id', 'email'],
+        },
+      ],
+    });
+    return res.json({ students });
+  }
 }
 
 export default new StudentController();

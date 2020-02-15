@@ -47,6 +47,27 @@ class TeacherController {
     });
     return res.json({ teacherCreate });
   }
+
+  async list(req, res) {
+    const teachers = await Teacher.findAll({
+      attributes: [
+        'id',
+        'nome',
+        'cpf',
+        'matricula',
+        'curriculo_latte',
+        'area_atuacao',
+      ],
+      include: [
+        {
+          model: User,
+          as: 'user',
+          attributes: ['id', 'email'],
+        },
+      ],
+    });
+    return res.json({ teachers });
+  }
 }
 
 export default new TeacherController();
