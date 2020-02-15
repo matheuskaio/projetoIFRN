@@ -1,7 +1,7 @@
-import Student from '../models/Student';
+import Teacher from '../models/Teacher';
 import User from '../models/User';
 
-class StudentController {
+class TeacherController {
   async store(req, res) {
     const userExist = await User.findOne({ where: { email: req.body.email } });
 
@@ -11,7 +11,7 @@ class StudentController {
         .json({ error: 'Já existe um usuário com esse e-mail.' });
     }
 
-    const matriculaExist = await Student.findOne({
+    const matriculaExist = await Teacher.findOne({
       where: { matricula: req.body.matricula },
     });
 
@@ -21,7 +21,7 @@ class StudentController {
         .json({ error: 'Já existe um usuário com essa matricula cadastrada.' });
     }
 
-    const cpfExist = await Student.findOne({ where: { cpf: req.body.cpf } });
+    const cpfExist = await Teacher.findOne({ where: { cpf: req.body.cpf } });
 
     if (cpfExist) {
       return res
@@ -37,23 +37,16 @@ class StudentController {
       type_user: student.type_user,
     });
 
-    const studentCreate = await Student.create({
+    const teacherCreate = await Teacher.create({
       nome: student.nome,
       cpf: student.cpf,
       matricula: student.matricula,
-      curso: student.curso,
+      area_atuacao: student.area_atuacao,
       curriculo_latte: student.curriculo_latte,
       user_id: id,
     });
-    return res.json({ studentCreate });
-  }
-
-  async update(req, res) {
-    const user = await User.findByPk(req.userId);
-    const student = await Student.findOne({ where: { user_id: user.id } });
-    const studentUpdate = await student.update(req.body);
-    return res.json({ studentUpdate });
+    return res.json({ teacherCreate });
   }
 }
 
-export default new StudentController();
+export default new TeacherController();
