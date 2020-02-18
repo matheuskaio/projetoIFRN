@@ -22,6 +22,11 @@ class Teacher extends Model {
       foreignKey: 'user_id',
       as: 'user',
     });
+    this.belongsToMany(models.Project, {
+      foreignKey: 'teacher_id',
+      through: 'teacher_projects',
+      as: 'projects',
+    });
   }
 }
 
