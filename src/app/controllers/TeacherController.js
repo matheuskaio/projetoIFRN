@@ -66,7 +66,7 @@ class TeacherController {
         },
       ],
     });
-    return res.json({ teachers });
+    return res.json(teachers);
   }
 }
 

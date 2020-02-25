@@ -42,6 +42,19 @@ class SessionController {
       }),
     });
   }
+
+  async index(req, res) {
+    const userData = req.body;
+    try {
+      if (userData) {
+        // const token = jwt.decode(userData.token, authConfig.secret);
+        res.json(true);
+      }
+    } catch (e) {
+      return res.status(500).json({ error: 'Fudeu' });
+    }
+    res.json(false);
+  }
 }
 
 export default new SessionController();

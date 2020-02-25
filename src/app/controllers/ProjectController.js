@@ -15,7 +15,7 @@ class ProjectController {
       return res.status(400).json({ error: 'Estudante não encotrado' });
     }
     if (!teacher) {
-      return res.status(400).json({ error: 'Estudante não encotrado' });
+      return res.status(400).json({ error: 'Professor não encotrado' });
     }
     const projetcCreate = await Project.create(project);
 
@@ -32,12 +32,18 @@ class ProjectController {
         { model: Teacher, as: 'teachers' },
       ],
     });
-    return res.json({ projects });
+    return res.json(projects);
   }
 
   async index(req, res) {
     const { project_id } = req.params;
-    const project = await Project.findByPk(project_id);
+    const project = await Project.findOne({
+      where: { id: project_id },
+      include: [
+        { model: Student, as: 'students' },
+        { model: Teacher, as: 'teachers' },
+      ],
+    });
     return res.json(project);
   }
 }

@@ -55,6 +55,16 @@ class StudentController {
     return res.json({ studentUpdate });
   }
 
+  async index(req, res) {
+    const { userId } = req.params;
+    const student = await Student.findOne({ where: { user_id: userId } });
+    if (!student) {
+      return res.status(401).json({ error: 'Estudante não encontrado' });
+    }
+
+    return res.json({ student });
+  }
+
   async list(req, res) {
     const students = await Student.findAll({
       attributes: [
@@ -73,7 +83,7 @@ class StudentController {
         },
       ],
     });
-    return res.json({ students });
+    return res.json(students);
   }
 }
 
