@@ -1,3 +1,4 @@
+import { Op } from 'sequelize';
 import Project from '../models/Project';
 import Student from '../models/Student';
 import Teacher from '../models/Teacher';
@@ -45,6 +46,23 @@ class ProjectController {
       ],
     });
     return res.json(project);
+  }
+
+  async search(req, res) {
+    const { search } = req.params;
+    const projects = await Project.findAll({
+      where: {
+        [Op.or]: {
+          nome: { [Op.iLike]: `%${search}%` },
+          area_conhecimento: { [Op.iLike]: `%${search}%` },
+          campus: { [Op.iLike]: `%${search}%` },
+        },
+      },
+    });
+    if (projects.length === 0) {
+      return res.status(401).json({ error: 'Nenhum projeto encontrado!' });
+    }
+    return res.json(projects);
   }
 }
 

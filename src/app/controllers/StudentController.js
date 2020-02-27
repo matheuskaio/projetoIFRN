@@ -49,10 +49,12 @@ class StudentController {
   }
 
   async update(req, res) {
-    const user = await User.findByPk(req.userId);
-    const student = await Student.findOne({ where: { user_id: user.id } });
+    const { user_id } = req.params;
+    // const user = await User.findByPk(user_id);
+    // const student = await Student.findOne({ where: { user_id: user.id } });
+    const student = await Student.findByPk(user_id);
     const studentUpdate = await student.update(req.body);
-    return res.json({ studentUpdate });
+    return res.json(studentUpdate);
   }
 
   async index(req, res) {

@@ -30,13 +30,14 @@ routes.get('/students', StudentController.list);
 
 // ROTAS DE LISTAGEM DE PROJETO E DETALHE DE PROJETO
 routes.get('/projects/', ProjectController.list);
+routes.get('/projects-search/:search', ProjectController.search);
 routes.get('/projects/:project_id', ProjectController.index);
 routes.get('/projects-type/:type', ProjectTypeController.list);
 
 routes.use(authMiddleware);
 
 // EDITAR ALUNO
-routes.put('/students/:userID', StudentController.update);
+routes.put('/students/:user_id', StudentController.update);
 
 routes.post('/projects/:student_id/:teacher_id', ProjectController.store);
 routes.get('/projectsUser/:tipo', ProjectUserController.list);
