@@ -38,8 +38,11 @@ routes.use(authMiddleware);
 
 // EDITAR ALUNO
 routes.put('/students/:user_id', StudentController.update);
+routes.put('/teachers/:user_id', TeacherController.update);
 
-routes.post('/projects/:student_id/:teacher_id', ProjectController.store);
+// routes.post('/projects/:student_id/:teacher_id', ProjectController.store);
+routes.post('/projects', ProjectController.store);
+routes.put('/projects/:project_id', ProjectController.update);
 routes.get('/projectsUser/:tipo', ProjectUserController.list);
 routes.get('/projectsUser/', ProjectUserController.list1);
 

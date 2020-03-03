@@ -48,6 +48,15 @@ class TeacherController {
     return res.json({ teacherCreate });
   }
 
+  async update(req, res) {
+    const { user_id } = req.params;
+    // const user = await User.findByPk(user_id);
+    // const student = await Student.findOne({ where: { user_id: user.id } });
+    const teacher = await Teacher.findByPk(user_id);
+    const teacherUpdate = await teacher.update(req.body);
+    return res.json(teacherUpdate);
+  }
+
   async list(req, res) {
     const teachers = await Teacher.findAll({
       attributes: [
